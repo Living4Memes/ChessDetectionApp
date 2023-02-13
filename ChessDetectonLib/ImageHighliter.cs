@@ -17,7 +17,7 @@ namespace ChessDetectonLib
             public static Image Highlight(Image initialImage, params RectangleF[] rectanglesToHighlight)
             {
                   // Initial image
-                  Image result = initialImage.Clone(x => x.Opacity(1f));
+                  Image result = initialImage.Clone(operation => operation.Opacity(1f));
                   // Color of the mask
                   Color maskColor = Color.Gray;
                   // Mask for each rectangle to highlight
@@ -28,30 +28,35 @@ namespace ChessDetectonLib
                   // Draw each rectangle on mask
                   foreach(RectangleF rect in rectanglesToHighlight)
                         // Draw current rectangle on mask with transparent color
-                        mask.Mutate(x => x.Clear(brush, rect));
+                        mask.Mutate(operation => operation.Clear(brush, rect));
 
                   // Apply mask to the initial image
-                  result.Mutate(x => x.DrawImage(mask, PixelColorBlendingMode.Normal, 0.5f));
+                  result.Mutate(operation => operation.DrawImage(mask, PixelColorBlendingMode.Normal, 0.5f));
 
-                  DemonstrateResultAsync(initialImage, mask, result);
+                  CreateDemonstrationImageAsync(initialImage, mask, result);
 
                   // Return result image
                   return result;
             }
 
-            internal async static void DemonstrateResultAsync(Image initialImage, Image maskImage, Image resultImage)
+            internal async static void CreateDemonstrationImageAsync(Image initialImage, Image maskImage, Image resultImage)
             {
-                  Size resultSize = new Size(initialImage.Width + maskImage.Width + resultImage.Width, new int[] { initialImage.Height, maskImage.Height, resultImage.Height }.Max() );
+                  // Getting size of result image
+                  Size resultSize = new Size(initialImage.Width + maskImage.Width + resultImage.Width, new int[] { initialImage.Height, maskImage.Height, resultImage.Height }.Max());
+                  // Creating result image
                   Image<Rgba32> demonstrationImage = new Image<Rgba32>(resultSize.Width, resultSize.Height, Color.White);
 
+                  // Getting positions of all images
                   Point initialImageLocation = new Point(0, 0);
                   Point maskImageLocation = new Point(maskImage.Width , 0);
                   Point resultImageLocation = new Point(maskImage.Width + resultImage.Width, 0);
 
-                  demonstrationImage.Mutate(x => x.DrawImage(initialImage, initialImageLocation, 1f));
-                  demonstrationImage.Mutate(x => x.DrawImage(maskImage, maskImageLocation, 1f));
-                  demonstrationImage.Mutate(x => x.DrawImage(resultImage, resultImageLocation, 1f));
+                  // Drawing each image on result image
+                  demonstrationImage.Mutate(operation => operation.DrawImage(initialImage, initialImageLocation, 1f));
+                  demonstrationImage.Mutate(operation => operation.DrawImage(maskImage, maskImageLocation, 1f));
+                  demonstrationImage.Mutate(operation => operation.DrawImage(resultImage, resultImageLocation, 1f));
 
+                  // Saving result image to file
                   await demonstrationImage.SaveAsPngAsync("demonstration.png");
             }
       }
