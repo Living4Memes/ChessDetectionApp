@@ -4,11 +4,15 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ChessDetectionApp"
+        WindowStartupLocation="CenterScreen"
         mc:Ignorable="d"
         Loaded="Window_Loaded"
-        Title="MainWindow" Height="450" Width="800">
-      <Grid>
-            <Image x:Name="image"/>
-
-      </Grid>
+        Title="MainWindow"
+        Height="900" Width="1600">
+      <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Button x:Name="button" Click="button_Click" Content="Создать изображение"
+                    Height="50"
+                    Width="150"/>
+            <TextBlock x:Name="textblock" Text="Drawing 0/100000"/>
+      </StackPanel>
 </Window>
