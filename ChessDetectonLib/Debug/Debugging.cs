@@ -4,7 +4,6 @@ using SixLabors.ImageSharp.Processing;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace ChessDetectonLib
 {
@@ -16,7 +15,7 @@ namespace ChessDetectonLib
             /// <param name="initialImage">Initial image</param>
             /// <param name="maskImage"> Mask image</param>
             /// <param name="resultImage">Result</param>
-            internal static Task<Image> CreateDemonstrationImageAsync(params Image[] images)
+            internal static Image CreateDemonstrationImage(params Image[] images)
             {
                   // Getting size of the grid to insert images to
                   int gridSize = 0;
@@ -54,7 +53,7 @@ namespace ChessDetectonLib
                         offset.Y += images.Skip(i * gridSize).Take(gridSize).Max(x => x.Height);
                   }
 
-                  return Task.FromResult(demonstrationImage);
+                  return demonstrationImage;
             }
 
             /// <summary>
@@ -68,9 +67,6 @@ namespace ChessDetectonLib
                   int width = imagesSize.OrderByDescending(x => x.Width).Take(gridSize).Sum(x => x.Width);
                   // Height of the image
                   int height = imagesSize.OrderByDescending(x => x.Height).Take(gridSize).Sum(x => x.Height);
-
-                  // TODO:
-                  // Cut unnecessary height
 
                   // Returning blank image
                   return new Image<Rgba32>(width, height, Color.White);
