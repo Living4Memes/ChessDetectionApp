@@ -3,6 +3,8 @@ using SixLabors.ImageSharp.Drawing.Processing;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
 using System;
+using SixLabors.Fonts;
+using System.Linq;
 
 namespace ChessDetectonLib
 {
@@ -11,6 +13,7 @@ namespace ChessDetectonLib
             // TODO:
             // Add text option to highlighters
             // Maybe add border to inmasked areas in mask highlighter
+            // Create class for HighlighterImage
 
             /// <summary>
             /// Highlights areas on the image with mask
@@ -82,7 +85,7 @@ namespace ChessDetectonLib
             /// <param name="height">Height of the highlighter image to create</param>
             /// <param name="borderThickness">Thickness of the border around the image</param>
             /// /// <exception cref="ArgumentException"></exception>
-            private static Image GetHighlighterImage(int width, int height, float borderThickness = 10f)
+            private static Image GetHighlighterImage(int width, int height, float borderThickness = 10f, string title = "")
             {
                   if (width < 0)
                         throw new ArgumentException("Width of the highlighter image could not be negative", nameof(width));
@@ -95,9 +98,11 @@ namespace ChessDetectonLib
                   Image result = new Image<Rgba32>(width, height);
                   // Options to fill the image
                   DrawingOptions options = new DrawingOptions() { GraphicsOptions = new GraphicsOptions() { BlendPercentage = 0.3f } };
+                  // Getting color for the image
+                  Color backgroundColor = ColorsProvider.NextRandomColor;
 
                   // Filling image with random color
-                  result.Mutate(operation => operation.Fill(options, ColorsProvider.NextRandomColor));
+                  result.Mutate(operation => operation.Fill(options, backgroundColor));
 
                   // If border is visible
                   if (borderThickness > 0)
@@ -118,8 +123,37 @@ namespace ChessDetectonLib
                         result.Mutate(operation => operation.DrawPolygon(pen, borderPoints));
                   }
 
+                  if(!string.IsNullOrEmpty(title))
+                  {
+                        // Font for the title text
+                        Font titleFont = new Font(SystemFonts.Families.Single(x => x.Name == "Courier New"), 14f);
+                        
+                        // Drawing title
+                        result.Mutate(operation => operation.DrawText(title, titleFont, ColorsProvider.GetReadableForegroundColor(backgroundColor), new PointF(borderThickness, borderThickness)));
+                  }
+
                   // Returning the image
                   return result;
+            }
+
+            /// <summary>
+            /// Calculates size of rectangle to insert input text to
+            /// </summary>
+            /// <param name="imageWidth">Width of the image</param>
+            /// <param name="imageHeight">Height of the image</param>
+            /// <param name="borderThickness">Thickness of the border of the image</param>
+            /// <param name="font">Font of the title text</param>
+            /// <param name="text">Text of the title</param>
+            /// <param name="desiredFontSize">Desired size of the font</param>
+            /// <param name="verticalMargin">Top and bottom margin of the text</param>
+            /// <returns></returns>
+            private static Rectangle GetTextRectangle(int imageWidth, int imageHeight, float borderThickness, Font font, string text, float desiredFontSize = 14f, float verticalMargin = 1f)
+            {
+                  throw new NotImplementedException();
+                  // Container of the title text
+                  FontRectangle textContainer = TextMeasurer.Measure(text, new TextOptions(font));
+                  // Default size and location of the text container
+                  RectangleF textContainter = new RectangleF(borderThickness, borderThickness + verticalMargin, imageWidth / 2, 20);
             }
       }
 }
