@@ -45,6 +45,5 @@ namespace ChessDetectonLib
                   Rgba32 backgroundColorPixel = backgroundColor.ToPixel<Rgba32>();
                   return (((backgroundColorPixel.R + backgroundColorPixel.G + backgroundColorPixel.B) / 3) > 128) ? Color.Black : Color.White;
             }
-
       }
 }
