@@ -73,14 +73,6 @@ namespace ChessDetectonLib
             /// <summary>
             /// Creates highlighter image with random color
             /// </summary>
-            /// <param name="size">Size of the highlighter image to create</param>
-            /// <param name="borderThickness">Thickness of the border around the image</param>
-            /// <exception cref="ArgumentException"></exception>
-            private static Image GetHighlighterImage(Size size, float borderThickness = 10f) =>
-                  GetHighlighterImage(size.Width, size.Height, borderThickness);
-            /// <summary>
-            /// Creates highlighter image with random color
-            /// </summary>
             /// <param name="width">Width of the highlighter image to create</param>
             /// <param name="height">Height of the highlighter image to create</param>
             /// <param name="borderThickness">Thickness of the border around the image</param>
@@ -149,11 +141,12 @@ namespace ChessDetectonLib
             /// <returns></returns>
             private static Rectangle GetTextRectangle(int imageWidth, int imageHeight, float borderThickness, Font font, string text, float desiredFontSize = 14f, float verticalMargin = 1f)
             {
-                  throw new NotImplementedException();
                   // Container of the title text
                   FontRectangle textContainer = TextMeasurer.Measure(text, new TextOptions(font));
                   // Default size and location of the text container
                   RectangleF textContainter = new RectangleF(borderThickness, borderThickness + verticalMargin, imageWidth / 2, 20);
+
+                  throw new NotImplementedException();
             }
       }
 }
