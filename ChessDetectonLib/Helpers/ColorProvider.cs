@@ -10,7 +10,7 @@ namespace ChessDetectonLib
             /// <summary>
             /// Known colors to take from
             /// </summary>
-            private static System.Drawing.Color[] knownColors = Enum.GetValues(typeof(System.Drawing.KnownColor))
+            private readonly static System.Drawing.Color[] knownColors = Enum.GetValues(typeof(System.Drawing.KnownColor))
                         .Cast<System.Drawing.KnownColor>()
                         .Select(x => System.Drawing.Color.FromKnownColor(x))
                         .ToArray();
@@ -18,7 +18,7 @@ namespace ChessDetectonLib
             /// <summary>
             /// Random numbers generator for color selection
             /// </summary>
-            private static Random _rnd = new Random();
+            private readonly static Random _rnd = new Random();
 
             /// <summary>
             /// Returns random color from known colors avaliable in <see cref="System.Drawing.Color"/>

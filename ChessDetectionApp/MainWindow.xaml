@@ -10,7 +10,7 @@
         Title="MainWindow"
         Height="900" Width="1600">
       <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Button x:Name="button" Click="button_Click" Content="Создать изображение"
+            <Button x:Name="button" Click="Button_Click" Content="Создать изображение"
                     Height="50"
                     Width="150"/>
             <TextBlock x:Name="textblock" Text="Drawing 0/100000"/>

@@ -23,7 +23,7 @@ namespace ChessDetectionApp
 
             }
 
-            private void button_Click(object sender, RoutedEventArgs e)
+            private void Button_Click(object sender, RoutedEventArgs e)
             {
                   Directory.GetFiles(@"C:\Users\Defender\Source\Repos\Living4Memes\ChessDetectionApp\ChessDetectonLib\Demos\DemoResult\").ToList().ForEach(x => File.Delete(x));
 

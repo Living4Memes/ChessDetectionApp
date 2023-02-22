@@ -63,9 +63,9 @@ namespace ChessDetectonLib
                   foreach (Rectangle rect in rectanglesToHighlight)
                   {
                         // Current highlighter image
-                        Image currentHighlighterImage = GetHighlighterImage(rect.Width, rect.Height, rect.Height);
+                        //Image currentHighlighterImage = GetHighlighterImage(rect.Width, rect.Height, rect.Height);
                         // Drawing current highlighter image over initial image
-                        result.Mutate(operation => operation.DrawImage(currentHighlighterImage, new Point(rect.Left, rect.Top), options));
+                        //result.Mutate(operation => operation.DrawImage(currentHighlighterImage, new Point(rect.Left, rect.Top), options));
                   }
 
                   // Return result image
